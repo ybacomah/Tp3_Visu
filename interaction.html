@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Interaction</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<script src="http://d3js.org/d3.v5.min.js"></script>
+<script src="histogram.js"></script>
+<script src="cloud.js"></script>
+<link rel="stylesheet" media="screen" type="text/css" href="style.css"/> 
+</head>
+<body>
+
+<div id="global">
+    <div id="tootlbar"> 
+    <h1>Boite à outils</h1>
+    <p>Axe X :<br/>
+    <input type="radio" name="radioXCloud" onClick="updateCloudX('petal_length')" checked>Longueur des pétales<br/>
+    <input type="radio" name="radioXCloud" onClick="updateCloudX('petal_width')" checked>Largeur des pétales<br/>
+    <input type="radio" name="radioXCloud" onClick="updateCloudX('sepal_length')" checked>Longueur des sépales<br/>
+    <input type="radio" name="radioXCloud" onClick="updateCloudX('sepal_width')" checked>Largeur des sépales<br/>
+    </p>
+    <p>Axe Y du nuage de points :<br/>
+    <input type="radio" name="radioYCloud" onClick="updateCloudY('petal_length')" checked>Longueur des pétales<br/>
+    <input type="radio" name="radioYCloud" onClick="updateCloudY('petal_width')" checked>Largeur des pétales<br/>
+    <input type="radio" name="radioYCloud" onClick="updateCloudY('sepal_length')" checked>Longueur des sépales<br/>
+    <input type="radio" name="radioYCloud" onClick="updateCloudY('sepal_width')" checked>Largeur des sépales<br/>
+    </p> 
+    <input type="number" id="nbClasses" onchange="updateNbClasses()" value=15>
+    </div>
+    <div id="cloud">
+    <h1>Nuage de points</h1>
+    <svg id="svgCloud"></svg>
+    </div>
+    <div id="histogram">
+    <h1>Histogramme</h1>
+    <svg id="svgHistogram"></svg>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+var data;
+
+d3.json("fleurs.json").then(function(data) {
+
+initCloud(d3.select("#svgCloud"), 350, 350, data, 'petal_length', "petal_width", "species");
+initHistogram(d3.select("#svgHistogram"), 350, 230, data, "petal_length");
+
+});
+
+</script>
+</body>
+</html>
